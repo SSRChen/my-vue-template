@@ -3,9 +3,9 @@ import store from '@/store';
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.BASE_API, // url = base url + request url
+  baseURL: process.env.VUE_APP_BASE_API || '/', // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: process.env.REQUEST_TIMEOUT || 0 // request timeout
+  timeout: process.env.VUE_APP_REQUEST_TIMEOUT || 0 // request timeout
 });
 
 // request interceptor
@@ -46,8 +46,13 @@ service.interceptors.response.use(
     if (response) {
       if (response.status === 401) {
         message = '登录已过期，请重新登陆';
+        store.auth.removeToken();
+        store.user.removeUser();
+        location.reload();
+      } else if (response.status === 500) {
+        message = '服务器开小差了~';
       } else {
-        message = response.data ? response.data.detail : '网络错误，请稍后再试';
+        message = response.data.detail ? response.data.detail : '网络错误，请稍后再试';
       }
     } else {
       message = '网络错误，请稍后再试';

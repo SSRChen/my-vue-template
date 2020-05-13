@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <van-nav-bar title="标题" left-arrow @click-left="$router.back()" />
+    <van-nav-bar title="登录" left-arrow @click-left="$router.back()" />
     <van-form @submit="login">
       <van-field
         v-model="form.username"
@@ -18,7 +18,14 @@
         :rules="rules.password"
       />
       <div class="common-buttonarea">
-        <van-button round block type="info" native-type="submit" :loading="loading">登录</van-button>
+        <van-button
+          round
+          block
+          type="info"
+          native-type="submit"
+          :loading="loading"
+          loading-text="正在登录"
+        >登录</van-button>
       </div>
     </van-form>
   </div>
@@ -56,9 +63,6 @@ export default class HomePage extends Vue {
     const { username, password } = this.form;
     memberService.login(username, password)
       .then(() => {
-        return memberService.updateUserInfo();
-      })
-      .then(() => {
         this.loginSuccess();
       })
       .catch(error => {
@@ -71,7 +75,7 @@ export default class HomePage extends Vue {
 
   loginSuccess() {
     const redirect = <string>this.$route.query.redirect || '/';
-    this.$router.push(redirect);
+    this.$router.replace(redirect);
   }
 }
 </script>

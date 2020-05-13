@@ -4,22 +4,25 @@ import store from '@/store';
 export interface Member {
     name: string;
     username: string;
-    // num: string;
-    // qrcode: string;
-    // status: string;
-    // status_detail: string;
-    // category: string;
-    // category_detail: string;
-    // bank_holder: string;
-    // bank_account: string;
-    // bank_name: string;
+    num: string;
+    qrcode: string;
+    status: string;
+    status_detail: string;
+    category: string;
+    category_detail: string;
+    bank_holder: string;
+    bank_account: string;
+    bank_name: string;
 }
 
 class MemberService extends BaseService<Member>{
 
     protected baseUrl = 'member';
     private loginUrl = `${this.baseUrl}/login`;
+    private logoutUrl = `${this.baseUrl}/logout`;
     private detailUrl = `${this.baseUrl}/detail`;
+    private updateUrl = `${this.baseUrl}/update`;
+    private teamUrl = `${this.baseUrl}/team`;
 
     public login(username: string, password: string): Promise<string> {
         const data = {
@@ -33,11 +36,19 @@ class MemberService extends BaseService<Member>{
         });
     }
 
+    public logout(): Promise<any> {
+        return this.get(this.logoutUrl).then(ret => {
+            store.auth.removeToken();
+            store.user.removeUser();
+            return ret;
+        });
+    }
+
     public isLogin() {
         return !!this.getToken();
     }
 
-    public isInit(){
+    public isInit() {
         return !!this.getUserInfo();
     }
 
@@ -52,8 +63,19 @@ class MemberService extends BaseService<Member>{
         });
     }
 
+    public update(data: any): Promise<Member> {
+        return this.put(this.updateUrl, data).then(ret => {
+            store.user.setUser(ret);
+            return ret;
+        });
+    }
+
     public getToken() {
         return store.auth.getToken();
+    }
+
+    public team(page: number) {
+        return this.list(page, null, this.teamUrl);
     }
 
 }
