@@ -24,6 +24,7 @@
           type="info"
           native-type="submit"
           :loading="loading"
+          :disabled="loading"
           loading-text="正在登录"
         >登录</van-button>
       </div>

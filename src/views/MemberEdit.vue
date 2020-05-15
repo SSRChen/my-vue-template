@@ -11,6 +11,7 @@
           block
           type="info"
           native-type="submit"
+          :disabled="loading"
           :loading="loading"
           loading-text="正在保存"
         >保存</van-button>
