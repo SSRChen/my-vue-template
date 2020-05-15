@@ -1,0 +1,28 @@
+import { BaseService } from './base.service';
+
+export interface <%= name %> {
+
+}
+
+class <%= name %>Service extends BaseService<<%= name %>>{
+
+    protected baseUrl: string = '/<%= lowercaseName %>';
+
+    public list(page: number, params: any) {
+        return super.list(page, params);
+    }
+
+    public detail(id: any) {
+        return super.detail(id);
+    }
+
+    public create(data: any) {
+        return super.create(data);
+    }
+
+    public update(id: any, data: any) {
+        return super.update(id, data);
+    }
+}
+
+export const <%= lowercaseName %>Service = new <%= name %>Service();
