@@ -21,6 +21,7 @@ export const routes: RouteConfig[] = [
         component: () => import(/* webpackChunkName: "member" */ '../views/Member.vue'),
         meta: { root: true, title: '我的', icon: 'user-circle-o',  keepAlive: true }
       }
+      /* placeholder:root */
     ]
   },
   {
@@ -46,6 +47,7 @@ export const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "memberTeam" */ '../views/MemberTeam.vue'),
     meta: { auth: true }
   },
+  /* placeholder:common */
 ];
 
 const router = new VueRouter({
