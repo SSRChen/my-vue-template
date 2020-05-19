@@ -4,6 +4,20 @@ import rootLayoutComponent from '@/layout/Root.vue';
 
 Vue.use(VueRouter);
 
+/**
+ * meta
+ * root: boolean  是否为根页面
+ * title: string  当root为true时有效，展示在底部toolbar上的名字
+ * icon: string  当root为true时有效，展示在底部toolbar上的图标
+ * auth: boolean  是否启用权限（登录）守卫
+ * keepAlive: boolean  是否启用路由缓存
+ */
+
+ /**
+  * 注意：
+  * 2个placeholder用于脚本插入配置，勿删
+  */
+
 export const routes: RouteConfig[] = [
   {
     path: '/',
@@ -19,7 +33,7 @@ export const routes: RouteConfig[] = [
         path: 'member',
         name: 'Member',
         component: () => import(/* webpackChunkName: "member" */ '../views/Member.vue'),
-        meta: { root: true, title: '我的', icon: 'user-circle-o',  keepAlive: true }
+        meta: { root: true, title: '我的', icon: 'user-circle-o', keepAlive: true }
       }
       /* placeholder:root */
     ]
@@ -46,7 +60,7 @@ export const routes: RouteConfig[] = [
     name: 'MemberTeam',
     component: () => import(/* webpackChunkName: "memberTeam" */ '../views/MemberTeam.vue'),
     meta: { auth: true }
-  },
+  }
   /* placeholder:common */
 ];
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="团队" left-arrow @click-left="$router.back()" />
+    <van-nav-bar :title="title" left-arrow @click-left="$router.back()" />
     <van-list
       v-model="loading"
       :finished="finished"
@@ -9,14 +9,14 @@
       :error.sync="error"
       error-text="请求失败，点击重新加载"
     >
-        <van-cell v-for="item of list" :key="item.username">{{item.username}}</van-cell>
+        <van-cell v-for="(item,i) of list" :key="i">{{item}}</van-cell>
     </van-list>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { NavBar, List, Cell } from 'vant';
-import { Member, memberService } from '../services';
+import { <%= name %>, <%= lowercaseName %>Service } from '../services';
 
 @Component({
   components: {
@@ -25,9 +25,11 @@ import { Member, memberService } from '../services';
     [Cell.name]: Cell
   }
 })
-export default class MemberTeam extends Vue {
+export default class <%= name %> extends Vue {
 
-  list: Member[] = [];
+  title: string = '<%= title %>';
+
+  list: <%= name %>[] = [];
 
   finished: boolean = false;
 
@@ -45,7 +47,7 @@ export default class MemberTeam extends Vue {
   }
 
   onLoad() {
-    memberService.team(this.page)
+    memberService.list(this.page)
       .then(ret => {
         this.list.push(...ret.results);
         this.finished = !ret.next;

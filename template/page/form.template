@@ -1,0 +1,69 @@
+<template>
+  <div>
+    <van-nav-bar :title="title" left-arrow @click-left="$router.back()" />
+    <van-form @submit="submit">
+      <van-field v-model="form.name" name="field" label="字段" placeholder="字段" />
+      <div class="common-buttonarea">
+        <van-button
+          round
+          block
+          type="info"
+          native-type="submit"
+          :disabled="loading"
+          :loading="loading"
+          loading-text="正在保存"
+        >保存</van-button>
+      </div>
+    </van-form>
+  </div>
+</template>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { NavBar, Dialog, Toast, Button, Form, Field } from 'vant';
+import { <%= lowercaseName %>Service } from '../services';
+
+@Component({
+  components: {
+    [NavBar.name]: NavBar,
+    [Button.name]: Button,
+    [Form.name]: Form,
+    [Field.name]: Field
+  }
+})
+export default class <%= name %>Edit extends Vue {
+
+  title: string = '<%= title %>';
+
+  form = {
+    field: '',
+  };
+
+  loading = false;
+
+  get id(): string{
+    return this.$route.params.id;
+  }
+
+  created() {
+    <%= lowercaseName %>Service.detail(this.id)
+      .then(ret => {
+
+      });
+  }
+
+  submit() {
+    this.loading = true;
+    const data = { ...this.form };
+    memberService.update(data)
+      .then(() => {
+        this.$router.back();
+      })
+      .catch(error => {
+        Toast.fail(error.message);
+      })
+      .finally(() => {
+        this.loading = false;
+      });
+  }
+}
+</script>
