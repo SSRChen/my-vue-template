@@ -1,10 +1,6 @@
 {
     "component": {},
     "page": {
-        "form": {
-            "path": "/${lowercaseName}/:id",
-            "fileName": "${name}Detail.vue"
-        },
         "root": {
             "root": true,
             "title": "root",

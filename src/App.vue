@@ -13,7 +13,6 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class App extends Vue {
 
   get keepAlive() {
-    console.log(this.$route)
     return this.$route.meta && this.$route.meta.keepAlive;
   }
 

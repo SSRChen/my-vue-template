@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { NavBar, List, Cell } from 'vant';
-import { <%= name %>, <%= lowercaseName %>Service } from '../services';
+import { <%= name %>, <%= service %>Service } from '../services';
 
 @Component({
   components: {
@@ -47,7 +47,7 @@ export default class <%= name %> extends Vue {
   }
 
   onLoad() {
-    memberService.list(this.page)
+    <%= service %>Service.list(this.page)
       .then(ret => {
         this.list.push(...ret.results);
         this.finished = !ret.next;

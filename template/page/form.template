@@ -20,7 +20,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { NavBar, Dialog, Toast, Button, Form, Field } from 'vant';
-import { <%= lowercaseName %>Service } from '../services';
+import { <%= service %>Service } from '../services';
 
 @Component({
   components: {
@@ -30,7 +30,7 @@ import { <%= lowercaseName %>Service } from '../services';
     [Field.name]: Field
   }
 })
-export default class <%= name %>Edit extends Vue {
+export default class <%= name %> extends Vue {
 
   title: string = '<%= title %>';
 
@@ -40,21 +40,25 @@ export default class <%= name %>Edit extends Vue {
 
   loading = false;
 
-  get id(): string{
-    return this.$route.params.id;
-  }
+  // get id(): string{
+  //   return this.$route.params.id;
+  // }
 
-  created() {
-    <%= lowercaseName %>Service.detail(this.id)
-      .then(ret => {
+  // created() {
+  //   this.getData();
+  // }
 
-      });
-  }
+  // getData(){
+  //   <%= service %>Service.detail(this.id)
+  //     .then(ret => {
+  //       this.form.field = ret.field;
+  //     });
+  // }
 
   submit() {
     this.loading = true;
     const data = { ...this.form };
-    memberService.update(data)
+    <%= service %>Service.update(data)
       .then(() => {
         this.$router.back();
       })
